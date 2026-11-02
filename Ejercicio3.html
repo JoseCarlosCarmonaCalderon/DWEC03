@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 3 - Eleccion de Idioma</title>
+</head>
+<body>
+    <h1>Ejercicio 3 - Eleccion de Idioma</h1>
+    
+    <!-- Aquí es donde inyecto el texto en el idioma correspondiente -->
+    <h2 id="mensaje"></h2>
+
+    <script>
+        // Compruebo si ya hay un idioma guardado en el navegador
+        let idioma = localStorage.getItem("idiomaPreferido");
+
+        // Si no hay nada guardado, preguntamos
+        if (idioma === null) {
+            
+            do {
+                idioma = prompt("¿Qué idioma prefieres? / Which language do you prefer? (ES / EN)").toUpperCase();
+                
+                // Si lo que ha puesto no es válido, mostramos el aviso
+                if (idioma !== "ES" && idioma !== "EN") {
+                    alert("Error: Solo se admite 'ES' o 'EN'. Por favor, inténtalo de nuevo.");
+                }
+                
+            } while (idioma !== "ES" && idioma !== "EN");
+
+            // Cuando sale del bucle, guardamos su elección para el futuro
+            localStorage.setItem("idiomaPreferido", idioma);
+        }
+
+        // Mostramos el texto en la web según el idioma 
+        let elementoMensaje = document.getElementById("mensaje");
+        
+        if (idioma === "ES") {
+            elementoMensaje.innerText = "¡Hola! Has seleccionado Español. Bienvenido a nuestra página.";
+        } else if (idioma === "EN") {
+            elementoMensaje.innerText = "Hello! You have selected English. Welcome to our page.";
+        }
+
+    </script>
+</body>
+</html>

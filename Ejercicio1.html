@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 1 - Fecha Fin de Año</title>
+</head>
+<body>
+    <h1>Ejercicio 1 - Ventanas y Fechas</h1>
+    <button onclick="abrirVentana()">Abrir ventana</button>
+
+    <script>
+        function abrirVentana(){
+            // Abrimos la ventana del tamaña pedido
+            let nuevaVentana = window.open("", "_blank", "width=600,height=400");
+
+            // Obtenemos la fecha de hoy
+            let hoy = new Date();
+            let anio = hoy.getFullYear();
+            let mes = hoy.getMonth() + 1;
+            let dia = hoy.getDate();
+
+            //Calculamos los dias que faltan para fin de año
+            let finAnio = new Date(anio, 11, 31);
+            let msRestantes = finAnio - hoy;
+            let diasRestantes = Math.ceil(msRestantes / (1000 * 60 * 60 * 24));
+
+            // Mostramos por pantalla
+            let frase = `Hoy es ${dia}/${mes}/${anio} y faltan ${diasRestantes} días para fin de año`;
+            nuevaVentana.document.write(`<p>${frase}</p>`)
+            nuevaVentana.document.close();
+        }
+    </script>
+    
+</body> 
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 2 - Manipulacion de Cadenas</title>
+</head>
+<body>
+    <h1>Ejercicio 2 - Compresion de Cadenas</h1>
+    
+    <label for="textoOriginal">Texto original:</label>
+    <input type="text" id="textoOriginal" placeholder="Ej: holaaaa mundo">
+    <button onclick="probarCompresion()">Comprimir</button>
+    
+    <br><br>
+
+    <label for="textoComprimido">Texto comprimido:</label>
+    <input type="text" id="textoComprimido" placeholder="Ej: hol4a?mundo">
+    <button onclick="probarDescompresion()">Descomprimir</button>
+
+    <p style="color: red; font-weight: bold;" id="mensajeError"></p>
+
+    <script>
+        // Función de compresión
+        function comprimirCadena(cadena) {
+            if (/[0-9]/.test(cadena)) {
+                throw new Error("Error: la cadena no puede contener números.");
+            }
+
+            let resultado = "";
+            let contador = 1;
+
+            for (let i = 0; i < cadena.length; i++) {
+                // Si es espacio lo convertimos a '?', si no, se queda igual
+                let charActual = cadena[i] === " " ? "?" : cadena[i];
+                let charSig = cadena[i + 1] === " " ? "?" : cadena[i + 1];
+
+                if (charActual === charSig) {
+                    contador++;
+                } else {
+                    if (contador > 1) {
+                        resultado += contador + charActual;
+                    } else {
+                        resultado += charActual;
+                    }
+                    contador = 1;
+                }
+            }
+            return resultado;
+        }
+
+        // Función de descompresión
+        function descomprimirCadena(cadenaComprimida) {
+            let resultado = "";
+            let numeroAcumulado = "";
+
+            for (let i = 0; i < cadenaComprimida.length; i++) {
+                let caracter = cadenaComprimida[i];
+
+                // Si es un número, lo guardamos
+                if (/[0-9]/.test(caracter)) {
+                    numeroAcumulado += caracter;
+                } else {
+                    // Si no es número, es una letra o el símbolo '?'
+                    let letraOriginal = caracter === "?" ? " " : caracter;
+                    
+                    // Si no había número previo, se repite 1 vez
+                    let repeticiones = numeroAcumulado === "" ? 1 : parseInt(numeroAcumulado);
+                    
+                    resultado += letraOriginal.repeat(repeticiones);
+                    numeroAcumulado = ""; 
+                }
+            }
+            return resultado;
+        }
+
+        // Funciones Auxiliares
+        function probarCompresion() {
+            let input = document.getElementById("textoOriginal").value;
+            let errorParrafo = document.getElementById("mensajeError");
+            errorParrafo.innerText = ""; 
+
+            try {
+                let comprimido = comprimirCadena(input);
+                document.getElementById("textoComprimido").value = comprimido;
+            } catch (error) {
+                
+                errorParrafo.innerText = error.message;
+            }
+        }
+
+        function probarDescompresion() {
+            let input = document.getElementById("textoComprimido").value;
+            let original = descomprimirCadena(input);
+            document.getElementById("textoOriginal").value = original;
+        }
+    </script>
+</body>
+</html>

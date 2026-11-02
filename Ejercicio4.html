@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 4 - Redireccion con setTimeout</title>
+</head>
+<body>
+    <h1>Ejercicio 4 - Redireccion con setTimeout</h1>
+    
+    <h2>Serás redirigido a Google en 3 segundos...</h2>
+    <p>Por favor, espera</p>
+
+    <script>
+        // setTimeout recibe una función y un tiempo en milisegundos (3000ms = 3s)
+        setTimeout(function() {
+            
+            // Cambiamos la URL de la página actual para forzar la redirección
+            window.location.href = "https://www.google.es";
+            
+        }, 3000);
+    </script>
+</body>
+</html>

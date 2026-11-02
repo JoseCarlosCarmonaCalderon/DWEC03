@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 5 - Informacion del Usuario</title>
+</head>
+<body>
+    <h1>Ejercicio 5 - Informacion del Usuario</h1>
+    <ul id="infoUsuario" style="font-size: 18px; line-height: 1.8;"></ul>
+
+    <script>
+        // Datos de la pantalla
+        let anchoPantalla = window.screen.width;
+        let altoPantalla = window.screen.height;
+        let resolucionPantalla = `${anchoPantalla}x${altoPantalla}`;
+
+        // Tipo de dispositivo
+        let tipoDispositivo = "";
+        if (anchoPantalla < 768) {
+            tipoDispositivo = "movil";
+        } else if (anchoPantalla >= 768 && anchoPantalla < 1024) {
+            tipoDispositivo = "tablet";
+        } else {
+            tipoDispositivo = "escritorio";
+        }
+
+        // Orientación de pantalla
+        let orientacionPantalla = (anchoPantalla >= altoPantalla) ? "horizontal" : "vertical";
+
+        // Idioma principal 
+        let idiomaNavegador = navigator.language;
+        let idiomaPrincipal = idiomaNavegador.substring(0, 2).toLowerCase();
+
+        // Protocolo seguro
+        let esConexionSegura = window.location.protocol === "https:";
+        let protocoloSeguro = esConexionSegura ? "https:" : "http:";
+
+        // Preparar el HTML final e inyectarlo en la lista
+        let datosUsuario = `
+            <li><strong>Tipo de Dispositivo:</strong> ${tipoDispositivo}</li>
+            <li><strong>Resolución de Pantalla:</strong> ${resolucionPantalla}</li>
+            <li><strong>Orientación:</strong> ${orientacionPantalla}</li>
+            <li><strong>Idioma Principal:</strong> ${idiomaPrincipal}</li>
+            <li><strong>Protocolo Seguro:</strong> ${protocoloSeguro}</li>
+        `;
+
+        document.getElementById("infoUsuario").innerHTML = datosUsuario;
+    </script>
+</body>
+</html>
